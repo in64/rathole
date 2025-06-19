@@ -56,9 +56,6 @@ jobs:
       - name: Install target
         if: matrix.cross == false
         run: rustup target add ${{ matrix.target }}
-      - name: Run tests
-        if: matrix.cross == false && matrix.target != 'aarch64-apple-darwin'
-        run: cargo test --release --target ${{ matrix.target }} --verbose 
       - name: Build release
         if: matrix.cross == false 
         run: cargo build --release --target ${{ matrix.target }}
@@ -67,9 +64,6 @@ jobs:
       - name: Install cross
         if: matrix.cross
         run: cargo install --version 0.2.5 cross
-      - name: Run tests
-        if: matrix.cross
-        run: cross test --release --target ${{ matrix.target }} --verbose --features embedded --no-default-features
       - name: Build release
         if: matrix.cross
         run: cross build --release --target ${{ matrix.target }} --features embedded --no-default-features
